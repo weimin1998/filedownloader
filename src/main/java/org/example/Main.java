@@ -20,7 +20,9 @@ public class Main {
 
         System.out.println("下载链接：" + url);
 
-        new Downloader().download(url);
+        // new Downloader().download(url);
+
+        new Downloader2().download(url);
 
         System.out.print("\r");
         System.out.print("下载完成");

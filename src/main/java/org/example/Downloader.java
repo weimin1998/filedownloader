@@ -6,6 +6,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+// 单线程下载
 public class Downloader {
 
     public ScheduledExecutorService pool = Executors.newScheduledThreadPool(1);
@@ -20,14 +21,13 @@ public class Downloader {
         long localFileSize = FileUtil.getFileContentLength(fullPath);
 
 
-
         HttpURLConnection httpURLConnection = HttpUtils.getHttpURLConnection(url);
 
         // 要下载的文件的大小
         int contentLength = httpURLConnection.getContentLength();
 
         DownloadInfoThread downloadInfoThread = new DownloadInfoThread(contentLength);
-        pool.scheduleWithFixedDelay(downloadInfoThread, 1, 1 , TimeUnit.SECONDS);
+        pool.scheduleWithFixedDelay(downloadInfoThread, 1, 1, TimeUnit.SECONDS);
 
 
         try (InputStream inputStream = httpURLConnection.getInputStream();

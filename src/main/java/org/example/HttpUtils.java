@@ -24,5 +24,24 @@ public class HttpUtils {
     }
 
 
+    public static HttpURLConnection getHttpURLConnection(String url, long startPos, long endPos) {
+        HttpURLConnection httpURLConnection = getHttpURLConnection(url);
 
+        if (endPos != 0) {
+            httpURLConnection.setRequestProperty("Range", "bytes=" + startPos + "-" + endPos);
+        } else {
+            httpURLConnection.setRequestProperty("Range", "bytes=" + startPos + "-");
+        }
+
+        return httpURLConnection;
+    }
+
+    public static long getHttpFileContentLength(String url) {
+        HttpURLConnection httpURLConnection = getHttpURLConnection(url);
+
+        int contentLength = httpURLConnection.getContentLength();
+
+        httpURLConnection.disconnect();
+        return contentLength;
+    }
 }
